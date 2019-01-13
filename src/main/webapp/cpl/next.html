@@ -1,0 +1,53 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<title>物流信息</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">物流信息</h1>
+            <form class="form-horizontal" action="#(ctx)/cpl/ship/#(coco)" method="post">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">发货编号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Lid" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">发货时间</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Ltime" pattern="[0-9]{12}" title="请按照yyyyMMddHHmm的格式输入" placeholder="输入yyyyMMddHHmm格式" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">物流公司</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Lcompany" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">物流单号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Lcode" pattern="[0-9]*"  required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-default">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+#end

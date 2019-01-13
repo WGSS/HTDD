@@ -1,0 +1,47 @@
+#define navshow()
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">合同订单管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form action="http://www.baidu.com/baidu" target="_blank" class="navbar-form navbar-right">
+                <input type="text" name="word" class="form-control" placeholder="搜索...">
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">首页</a></li>
+                <li><a href="#">欢迎您,#(session.user)</a></li>
+                <li><a href="/HTDD/login/exit">安全退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+#end
+
+#define leftnav()
+<div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+        <li id="firstpage"><a href="/">首页</a></li>
+        <li id="cp"><a href="/cp">合同签订</a></li>
+        <li id="contract"><a href="/contract">合同查询</a></li>
+    </ul>
+    <ul class="nav nav-sidebar">
+        <li id="product"><a href="/product">库存查询</a></li>
+        <li id="cpl"><a href="/cpl">产品发货</a></li>
+        <li id="logistics"><a href="/logistics">发货查询</a></li>
+        <li id="supplier"><a href="/supplier">供应商管理</a></li>
+        <li id="class"><a href="/class">品类管理</a></li>
+        <li id="warehouse"><a href="/warehouse">仓库管理</a></li>
+    </ul>
+    <ul class="nav nav-sidebar">
+        <li id="customer"><a href="/customer">客户查询</a></li>
+        <li id="staff"><a href="/staff">员工查询</a></li>
+    </ul>
+
+</div>
+#end

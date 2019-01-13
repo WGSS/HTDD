@@ -1,0 +1,102 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<title>货品信息</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">货品信息</h1>
+            <form class="form-horizontal" action="#(ctx)/product/#(method)" method="post">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">货品编号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Pid" value="#(product.Pid??null)" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">名称</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Pname" value="#(product.Pname??null)" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">型号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Pmodel" value="#(product.Pmodel??null)" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">单位</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Punit" value="#(product.Punit??null)" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">单价</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Pprice" value="#(product.Pprice??null)" pattern="[0-9]*.{1}[0-9]*" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">库存</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Pnumber" value="#(product.Pnumber??null)" pattern="[0-9]*" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">供应商</label>
+                    <div class="col-sm-4">
+                        <select name="Supplierid" class="form-control">
+                            #for(x : supplier)
+                            <option value="#(x.Supplierid)">#(x.Supplierid+x.Suppliername)</option>
+                            #end
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">类别</label>
+                    <div class="col-sm-4">
+                        <select name="Classid" class="form-control">
+                            #for(x : class)
+                            <option value="#(x.Classid)">#(x.Classid+x.Classname)</option>
+                            #end
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">存放仓库</label>
+                    <div class="col-sm-4">
+                        <select name="Wid" class="form-control">
+                            #for(x : warehouse)
+                            <option value="#(x.Wid)">#(x.Wid+x.Wname)</option>
+                            #end
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-default">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+<script>
+    $(document).ready(function(){
+        $("[name='Supplierid']").val("#(product.Supplierid??null)");
+        $("[name='Classid']").val("#(product.Classid??null)");
+        $("[name='Wid']").val("#(product.Wid??null)");
+    });
+</script>
+#end

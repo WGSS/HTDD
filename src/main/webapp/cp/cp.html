@@ -1,0 +1,95 @@
+#@layout()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+<title>合同签订-STEP1</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">STEP1 选择货品</h1>
+            <table data-toggle="table" data-url="#(ctx)/cp/showlist" data-pagination="true" data-search="true" data-show-columns="true"
+                   data-height="500" id="tablelist" data-side-pagination="client" data-page-size="5" data-page-number="1"
+                   data-show-toggle="true" data-show-pagination-switch="true" 	data-page-list="[5, 10, 50, 100]" data-show-refresh="true">
+                <thead>
+                <tr>
+                    <th data-field="Pid">#</th>
+                    <th data-field="Pname">名称</th>
+                    <th data-field="Pmodel">型号</th>
+                    <th data-field="Punit">单位</th>
+                    <th data-field="Pprice">单价</th>
+                    <th data-field="Pnumber">库存</th>
+                    <th data-field="Suppliername">供应商</th>
+                    <th data-field="Classname">类别</th>
+                    <th data-field="Wname">存放仓库</th>
+                    <th data-field="operation"
+                        data-formatter="actionFormatter"
+                        data-events="actionEvents">操作</th>
+                </tr>
+                </thead>
+            </table>
+            <a class="btn btn-primary btn-lg" href="#(ctx)/cp/cart">下一步</a>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加至订单</h4>
+            </div>
+            <form class="form-horizontal" action="" onsubmit="">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">数量</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" value="1" min="1" max="99999" name="quantity">
+                        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="submit" type="button" onclick="submitForm()" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+    function actionFormatter(value, row, index) {
+        return '<a class="mod" >添加到订单</a> ';
+    }
+    var res;
+    window.actionEvents = {
+        'click .mod': function(e, value, row, index) {
+            $("input[name='quantity']").val(1);
+            res = row;
+            $('#myModal').modal('toggle');
+            }
+        }
+    function submitForm() {
+            res['quantity'] = $("input[name='quantity']").val();
+            $.ajax({
+                type: "post",
+                data: res,
+                url: '#(ctx)/cp/add',
+                success: function (data) {
+                    alert('添加成功');
+                }
+            });
+            $('#myModal').modal('toggle');
+            res = null;
+    }
+</script>
+#end

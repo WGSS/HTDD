@@ -1,0 +1,99 @@
+#@layout?()
+#define pageinfo()
+    <link href="#(ctx)/css/base.css" rel="stylesheet">
+    <title>仓库管理</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">仓库管理</h1>
+            <button class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">增加</button>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>仓库名</th>
+                        <th>位置</th>
+                        <th>主管</th>
+                        <th>电话</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    #for(x : warehouse)
+                        <tr>
+                            <td>#(x.Wid)</td>
+                            <td>#(x.Wname)</td>
+                            <td>#(x.Wlocation)</td>
+                            <td>#(x.Wpeople)</td>
+                            <td>#(x.Wphone)</td>
+                            <td>
+                                <a class="btn btn-default btn-sm" href="#(ctx)/warehouse/edit/#(x.Wid)">编辑</a>
+                                <a class="btn btn-default btn-sm" href="#(ctx)/warehouse/delete/#(x.Wid)">删除</a>
+                            </td>
+                        </tr>
+                    #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">增加</h4>
+            </div>
+                <form class="form-horizontal" action="#(ctx)/warehouse/add" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">仓库编号</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="wid" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">仓库名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="wname" required autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">位置</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="wlocation" required autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">负责人</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="wpeople" required autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">电话</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="wphone" pattern="[0-9]*" required autofocus>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+#end

@@ -1,0 +1,68 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<title>合同详情</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">合同查询</h1>
+            <div class="col-sm-12" >
+                <strong>#</strong>#(contract.Coid)&nbsp;&nbsp;
+                <strong>签订时间:</strong>#(contract.Cotime)&nbsp;&nbsp;
+                <strong >总金额:</strong>#(contract.Cototal)&nbsp;&nbsp;
+                <strong>订单状态:</strong>#(contract.Cstatus)&nbsp;&nbsp;
+                <strong>客户:</strong>#(cname)&nbsp;&nbsp;
+                <strong>员工:</strong>#(sname)
+            </div>
+            <div class="col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>产品编号</th>
+                        <th>产品名称</th>
+                        <th>产品数量</th>
+                        <th>产品单价</th>
+                        <th>总价</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    #set(sum=0)
+                    #set(row=0)
+                    #for(x : cp)
+                        #set(row=x.Pprice*x.Num)
+                        #set(sum=sum+row)
+                        <tr>
+                            <td>#(x.Coid)</td>
+                            <td>#(x.Pid)</td>
+                            <td>#(x.Pname)</td>
+                            <td>#(x.Num)</td>
+                            <td>#(x.Pprice)</td>
+                            <th>#(row)</th>
+                        </tr>
+                    #end
+                    <tr>
+                        <td><strong>合计</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <th>#(sum)</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+
+#end

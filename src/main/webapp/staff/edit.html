@@ -1,0 +1,101 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<title>员工信息</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">员工信息</h1>
+            <form class="form-horizontal" action="#(ctx)/staff/#(method)" method="post">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">员工编号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Sid" value="#(staff.Sid??null)" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">名称</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Sname" value="#(staff.Sname??null)" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">性别</label>
+                    <div class="col-sm-4">
+                        <select name="Ssex" class="form-control">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">电话</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Sphone" value="#(staff.Sphone??null)" pattern="[0-9]*" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">职位</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Sduty" value="#(staff.Sduty??null)" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">住址</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Slocation" value="#(staff.Slocation??null)" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">在职状态</label>
+                    <div class="col-sm-4">
+                        <select name="Sstatus" class="form-control">
+                            <option value="true">在职</option>
+                            <option value="false">离职</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">入职时间</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Stime" value="#(staff.Stime??null)" pattern="[0-9]{8}" title="请按照yyyymmnn的格式输入" placeholder="输入yyyymmnn格式" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">部门</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Sdept" value="#(staff.Sdept??null)" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">用户名</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="Username" value="#(staff.username??null)" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-default">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+<script>
+    $(document).ready(function(){
+        $("[name='Ssex']").val("#(staff.Ssex??'男')");
+        $("[name='Sstatus']").val("#(staff.Sstatus??'true')");
+    });
+</script>
+#end

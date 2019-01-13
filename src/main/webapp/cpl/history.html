@@ -1,0 +1,43 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<title>发货历史</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">发货历史</h1>
+            <a class="btn btn-default btn-lg" href="#(ctx)/cpl/add/#(coco)">发货</a>
+            <div class="col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>货品编号</th>
+                        <th>货品名称</th>
+                        <th>货品数量</th>
+                        <th>快递单号</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    #for(x : cpllist)
+                    <tr>
+                        <td>#(x.Coid)</td>
+                        <td>#(x.Pid)</td>
+                        <td>#(x.Pid)</td>
+                        <td>#(x.Delivernum)</td>
+                        <td>#(x.Lid)</td>
+                    </tr>
+                    #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+#end

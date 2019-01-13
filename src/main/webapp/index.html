@@ -1,0 +1,32 @@
+#@layout?()
+
+#define pageinfo()
+    <link href="#(ctx)/css/base.css" rel="stylesheet">
+    <title>合同订单管理系统</title>
+#end
+
+#define main()
+#@navshow?()
+<body>
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="jumbotron">
+                <h1>欢迎使用合同订单发货系统!</h1>
+                <p>本系统使用使用JFinal框架和BootStrap框架。</br>
+                该项目由Maven构建。</br>
+                使用Template Engine模板引擎渲染前端页面。</br>
+                支持合同的签订，查询。</br>
+                订单发货，货物查询等功能。</br>
+               </p>
+                <p><a class="btn btn-primary btn-lg" href="#(ctx)/cp" role="button">开始使用</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+#end

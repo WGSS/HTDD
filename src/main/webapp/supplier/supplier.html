@@ -1,0 +1,74 @@
+#@layout?()
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<title>供应商管理</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">供应商</h1>
+            <button class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">增加</button>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>供应商名称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    #for(x : supplier)
+                    <tr>
+                        <td>#(x.Supplierid)</td>
+                        <td>#(x.Suppliername)</td>
+                        <td>
+                            <a class="btn btn-default btn-sm" href="#(ctx)/supplier/edit/#(x.Supplierid)">编辑</a>
+                            <a class="btn btn-default btn-sm" href="#(ctx)/supplier/delete/#(x.Supplierid)">删除</a>
+                        </td>
+                    </tr>
+                    #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">增加</h4>
+            </div>
+            <form class="form-horizontal" action="#(ctx)/supplier/add" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">供应商编号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="supplierid" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">供应商名称</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="suppliername" required autofocus>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+#end

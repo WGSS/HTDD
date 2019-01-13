@@ -1,0 +1,87 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<title>合同签订-STEP2</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">STEP2 确认信息</h1>
+            <a class="btn btn-default" href="#(ctx)/cp/clear">清空购物车</a>
+            <div class="col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>产品名</th>
+                        <th>单价</th>
+                        <th></th>
+                        <th>数量</th>
+                        <th></th>
+                        <th>总价</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    #set(sum=0)
+                    #for(x : cart)
+                    <tr>
+                        <td>#(x.key)</td>
+                        <td>#(queryStr("select Pname from Product where Pid=?",x.key))</td>
+                        <td>#(queryDouble("select Pprice from Product where Pid=?",x.key))</td>
+                        <td><a href="#(ctx)/cp/minus/#(x.key)">减少</a></td>
+                        <td>#(x.value)</td>
+                        <td><a href="#(ctx)/cp/addition/#(x.key)">增加</a></td>
+                        <td>#(queryDouble("select Pprice from Product where Pid=?",x.key) * x.value)</td>
+                        <td><a href="#(ctx)/cp/remove/#(x.key)">移除</a></td>
+                    </tr>
+                    #set(sum = sum + queryDouble("select Pprice from Product where Pid=?",x.key) * x.value)
+                    #end
+                    <tr>
+                        <td>合计</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>#(sum)</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </br>
+            </br>
+            <form class="form-horizontal" action="#(ctx)/cp/next" method="post">
+                <div class="col-sm-7 col-sm-offset-2" style="margin-top: 20px;">
+                    <label class="control-label">客户</label>
+                    <select name="Cid" class="form-control">
+                        #for(x : customer)
+                        <option value="#(x.Cid)">#(x.Cid+x.Cname)</option>
+                        #end
+                    </select>
+                </div>
+                <div class="col-sm-7 col-sm-offset-2"  style="margin-bottom: 20px;">
+                <label class="control-label">员工</label>
+                    <select name="Sid" class="form-control">
+                        #for(x : staff)
+                        <option value="#(x.Sid)">#(x.Sid+x.Sname)</option>
+                        #end
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-5 col-sm-12" style="margin-bottom: 20px;">
+                        <button type="submit" class="btn btn-primary btn-lg">保存</button>
+                    </div>
+                </div>
+                <input type="hidden" name="Cototal" value="#(sum)">
+            </form>
+        </div>
+    </div>
+</div>
+#end

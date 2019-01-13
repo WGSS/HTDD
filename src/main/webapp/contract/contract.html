@@ -1,0 +1,65 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+<title>合同查询</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">合同查询</h1>
+            <table data-toggle="table" data-url="#(ctx)/contract/showlist" data-pagination="true" data-search="true" data-show-columns="true"
+                   data-height="500" id="tablelist" data-side-pagination="client" data-page-size="5" data-page-number="1"
+                   data-show-toggle="true" data-show-pagination-switch="true" 	data-page-list="[5, 10, 50, 100]" data-show-refresh="true">
+                <thead>
+                <tr>
+                    <th data-field="Coid">#</th>
+                    <th data-field="Cotime"
+                        data-formatter="timeFormatter">签订时间</th>
+                    <th data-field="Cototal">总金额</th>
+                    <th data-field="Cstatus">合同状态</th>
+                    <th data-field="Cid">客户编号</th>
+                    <th data-field="Sid">员工编号</th>
+                    <th data-field="operation"
+                        data-formatter="actionFormatter"
+                        data-events="actionEvents">操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+    function actionFormatter(value, row, index) {
+        return '<a class="more" >详情</a> ' + '<a class="mod" >修改</a> ' + '<a class="delete">删除</a>';
+    }
+    function timeFormatter(value, row, index) {
+        var showtime = value.substring(0,4)+"-"+value.substring(4,6)+"-"+value.substring(6,8)+" "+value.substring(8,10)+":"+value.substring(10);
+        return showtime;
+    }
+    window.actionEvents = {
+        'click .mod': function(e, value, row, index) {
+            window.location.href = "#(ctx)/contract/edit/" + row["Coid"];
+        },
+        'click .delete' : function(e, value, row, index) {
+            window.location.href = "#(ctx)/contract/delete/" + row["Coid"];
+            $('#table').bootstrapTable("refresh");
+        },
+        'click .more': function(e, value, row, index) {
+            window.location.href = "#(ctx)/contract/more/" + row["Coid"];
+        }
+    }
+</script>
+#end

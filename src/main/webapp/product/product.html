@@ -1,0 +1,61 @@
+#@layout?()
+
+#define pageinfo()
+<link href="#(ctx)/css/base.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+<title>货品查询</title>
+#end
+
+#define main()
+#@navshow?()
+<div class="container-fluid">
+    <div class="row">
+        #@leftnav?()
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">货品查询</h1>
+            <a class="btn btn-default" href="#(ctx)/product/add">增加</a>
+            <table data-toggle="table" data-url="#(ctx)/product/showlist" data-pagination="true" data-search="true" data-show-columns="true"
+                   data-height="500" id="tablelist" data-side-pagination="client" data-page-size="5" data-page-number="1"
+                   data-show-toggle="true" data-show-pagination-switch="true" 	data-page-list="[5, 10, 50, 100]" data-show-refresh="true">
+                <thead>
+                <tr>
+                    <th data-field="Pid">#</th>
+                    <th data-field="Pname">名称</th>
+                    <th data-field="Pmodel">型号</th>
+                    <th data-field="Punit">单位</th>
+                    <th data-field="Pprice">单价</th>
+                    <th data-field="Pnumber">库存</th>
+                    <th data-field="Suppliername">供应商</th>
+                    <th data-field="Classname">类别</th>
+                    <th data-field="Wname">存放仓库</th>
+                    <th data-field="operation"
+                        data-formatter="actionFormatter"
+                        data-events="actionEvents">操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+#end
+
+#define js()
+<script src="#(ctx)/js/baseurl.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+    function actionFormatter(value, row, index) {
+        return '<a class="mod" >修改</a> ' + '<a class="delete">删除</a>';
+    }
+    window.actionEvents = {
+        'click .mod': function(e, value, row, index) {
+            window.location.href = "#(ctx)/product/edit/" + row["Pid"];
+        },
+        'click .delete' : function(e, value, row, index) {
+            window.location.href = "#(ctx)/product/delete/" + row["Pid"];
+            $('#table').bootstrapTable("refresh");
+        }
+    }
+</script>
+#end
